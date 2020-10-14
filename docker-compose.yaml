@@ -1,0 +1,42 @@
+version: "3"
+services:
+    db1:
+      image: apacheignite/ignite
+      environment: 
+      - "CONFIG_URI=/opt/db.xml"
+      volumes:
+      - "./config/db1.xml:/opt/db.xml"
+      networks:
+         service1_net:
+          ipv4_address: 192.168.1.10
+      ports:
+      - "47500-47509:47500-47509"
+      - "10800:10800"
+    db2:
+      image: apacheignite/ignite
+      environment: 
+      - "CONFIG_URI=/opt/db.xml"
+      volumes:
+      - "./config/db2.xml:/opt/db.xml"
+      networks:
+         service1_net:
+          ipv4_address: 192.168.1.11
+      ports:
+      - "10801:10800"
+    db3: 
+      image: apacheignite/ignite
+      environment: 
+      - "CONFIG_URI=/opt/db.xml"
+      volumes:
+      - "./config/db3.xml:/opt/db.xml"
+      networks:
+         service1_net:
+          ipv4_address: 192.168.1.12
+      ports:
+      - "10802:10800"
+networks:
+  service1_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.1.0/16
